@@ -1,10 +1,8 @@
 import chalk from "chalk";
 import inquirer from "inquirer";
-import gradient from "gradient-string";
-import figlet from "figlet";
 import { createSpinner } from "nanospinner";
 
-const delayBetweenQuestions = 2000;
+const delayBetweenQuestions = 1650;
 let userName: string;
 
 const askForUserName = async () => {
@@ -80,18 +78,18 @@ const thirdQuoteQuestion = async () => {
   return answerChecker(answers.thirdQuote === "...las devtools abiertas?");
 };
 
-function winner() {
+const winnerChecker = async () => {
   console.clear();
-  figlet(
-    `Felicidades , ${userName}! Has vivido a tope la mitad del Bootcamp!`,
-    (error, congratulations) => {
-      console.log(gradient.pastel.multiline(congratulations));
 
-      console.log(chalk.green(`¡Ahora rumbo a Mordor. Suerte!`));
-      process.exit(0);
-    }
+  console.log(
+    chalk.bgGreen(
+      ` ¡Felicidades, ${chalk.bold(
+        "userName"
+      )}! Has vivido a tope la mitad del Bootcamp! `
+    )
   );
-}
+  process.exit(0);
+};
 
 const answerChecker = async (isRightAnswered: boolean) => {
   const loader = createSpinner("mmm...").start();
@@ -111,4 +109,4 @@ await askForUserName();
 await firstQuoteQuestion();
 await secondQuoteQuestion();
 await thirdQuoteQuestion();
-winner();
+winnerChecker();
